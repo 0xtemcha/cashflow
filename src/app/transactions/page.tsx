@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { initialTransactions } from '@/mocked-data'
+import { transactionPath } from '@/paths'
 
 const TransactionsPage = () => {
 	return (
@@ -9,7 +10,7 @@ const TransactionsPage = () => {
 					<h2 className="text-lg">{transaction.title}</h2>
 
 					<Link
-						href={`/transactions/${transaction.id}`}
+						href={transactionPath(transaction.id)}
 						className="text-sm underline"
 					>
 						View
