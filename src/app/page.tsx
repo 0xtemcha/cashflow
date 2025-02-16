@@ -1,7 +1,5 @@
-export default function Home() {
-	return (
-		<div className="grid min-h-screen place-items-center">
-			<h1>Cashflow</h1>
-		</div>
-	)
+const HomePage = () => {
+	return <h2 className="text-lg">HomePage</h2>
 }
+
+export default HomePage
