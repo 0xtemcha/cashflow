@@ -1,8 +1,8 @@
 import { LucideMinus, LucidePlus } from 'lucide-react'
 import Link from 'next/link'
+import { Heading } from '@/components/heading'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { initialTransactions } from '@/mocked-data'
 import { transactionPath } from '@/paths'
 
@@ -14,14 +14,10 @@ const TRANSACTION_TYPE_ICONS = {
 const TransactionsPage = () => {
 	return (
 		<div className="flex flex-1 flex-col gap-y-8">
-			<div>
-				<h2 className="text-3xl font-bold tracking-tight">My Transactions</h2>
-				<p className="text-muted-foreground text-sm">
-					All your transactions at one place
-				</p>
-			</div>
-
-			<Separator />
+			<Heading
+				title={'My Transactions'}
+				description="All your transactions at one place"
+			/>
 
 			<div className="animate-fade-from-top flex flex-1 flex-col items-center gap-y-4">
 				{initialTransactions.map((transaction) => (
