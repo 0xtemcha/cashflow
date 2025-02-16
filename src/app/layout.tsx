@@ -44,7 +44,7 @@ export default function RootLayout({
 					<div>
 						<Link
 							href={transactionsPath()}
-							className={buttonVariants({ variant: 'outline' })}
+							className={buttonVariants({ variant: 'default' })}
 						>
 							My Transactions
 						</Link>
