@@ -1,12 +1,14 @@
+import { LucideMinus, LucidePlus } from 'lucide-react'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { initialTransactions } from '@/mocked-data'
 import { transactionPath } from '@/paths'
 
 const TRANSACTION_TYPE_ICONS = {
-	INCOME: '🤑',
-	OUTCOME: '💸',
+	INCOME: <LucidePlus color="var(--color-green-500)" />,
+	OUTCOME: <LucideMinus color="var(--color-destructive)" />,
 }
 
 const TransactionsPage = () => {
@@ -18,6 +20,8 @@ const TransactionsPage = () => {
 					All your transactions at one place
 				</p>
 			</div>
+
+			<Separator />
 
 			<div className="animate-fade-from-top flex flex-1 flex-col items-center gap-y-4">
 				{initialTransactions.map((transaction) => (
