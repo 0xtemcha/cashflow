@@ -17,7 +17,7 @@ const TransactionsPage = () => {
 				</p>
 			</div>
 
-			<div className="flex flex-1 flex-col items-center gap-y-4">
+			<div className="animate-fade-from-top flex flex-1 flex-col items-center gap-y-4">
 				{initialTransactions.map((transaction) => (
 					<div
 						key={transaction.id}
