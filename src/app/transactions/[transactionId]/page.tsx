@@ -1,4 +1,8 @@
+import Link from 'next/link'
+import { Placeholder } from '@/components/placeholder'
+import { Button } from '@/components/ui/button'
 import { initialTransactions } from '@/mocked-data'
+import { transactionsPath } from '@/paths'
 
 const TransactionPage = async ({
 	params,
@@ -14,7 +18,16 @@ const TransactionPage = async ({
 	)
 
 	if (!transaction) {
-		return <div>Transaction not found</div>
+		return (
+			<Placeholder
+				label="Transaction not found"
+				button={
+					<Button asChild variant="outline">
+						<Link href={transactionsPath()}>My Transactions</Link>
+					</Button>
+				}
+			/>
+		)
 	}
 
 	return (
