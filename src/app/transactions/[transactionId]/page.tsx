@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Placeholder } from '@/components/placeholder'
 import { Button } from '@/components/ui/button'
+import { TransactionItem } from '@/features/transaction/components/transaction-item'
 import { initialTransactions } from '@/mocked-data'
 import { transactionsPath } from '@/paths'
 
@@ -31,9 +32,8 @@ const TransactionPage = async ({
 	}
 
 	return (
-		<div>
-			<h2 className="text-lg">{transaction.title}</h2>
-			<p className="text-sm">{transaction.description}</p>
+		<div className="animate-fade-from-top flex justify-center">
+			<TransactionItem transaction={transaction} isDetail={true} />
 		</div>
 	)
 }
