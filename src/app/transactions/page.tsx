@@ -1,8 +1,10 @@
 import { Heading } from '@/components/heading'
 import { TransactionItem } from '@/features/transaction/components/transaction-item'
-import { initialTransactions } from '@/mocked-data'
+import { getTransactions } from '@/features/transaction/queries/get-trasactions'
 
-const TransactionsPage = () => {
+const TransactionsPage = async () => {
+	const transactions = await getTransactions()
+
 	return (
 		<div className="flex flex-1 flex-col gap-y-8">
 			<Heading
@@ -11,7 +13,7 @@ const TransactionsPage = () => {
 			/>
 
 			<div className="animate-fade-from-top flex flex-1 flex-col items-center gap-y-4">
-				{initialTransactions.map((transaction) => (
+				{transactions.map((transaction) => (
 					<TransactionItem key={transaction.id} transaction={transaction} />
 				))}
 			</div>
