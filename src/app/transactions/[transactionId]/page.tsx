@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Placeholder } from '@/components/placeholder'
 import { Button } from '@/components/ui/button'
 import { TransactionItem } from '@/features/transaction/components/transaction-item'
-import { initialTransactions } from '@/mocked-data'
+import { getTransaction } from '@/features/transaction/queries/get-transaction'
 import { transactionsPath } from '@/paths'
 
 const TransactionPage = async ({
@@ -12,11 +12,9 @@ const TransactionPage = async ({
 	params: Promise<{ transactionId: string }>
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) => {
-	const transactionId = (await params).transactionId
 	// const queryParams = await searchParams
-	const transaction = initialTransactions.find(
-		(transaction) => transaction.id === transactionId,
-	)
+	const transactionId = (await params).transactionId
+	const transaction = await getTransaction(transactionId)
 
 	if (!transaction) {
 		return (
