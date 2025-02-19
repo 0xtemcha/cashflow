@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { Heading } from '@/components/heading'
+import { Spinner } from '@/components/spinner'
 import { TransactionList } from '@/features/transaction/components/transaction-list'
 
 const TransactionsPage = async () => {
@@ -10,7 +11,7 @@ const TransactionsPage = async () => {
 				description="All your transactions at one place"
 			/>
 
-			<Suspense>
+			<Suspense fallback={<Spinner />}>
 				<TransactionList />
 			</Suspense>
 		</div>
