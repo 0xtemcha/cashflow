@@ -1,9 +1,6 @@
-import Link from 'next/link'
-import { Placeholder } from '@/components/placeholder'
-import { Button } from '@/components/ui/button'
+import { notFound } from 'next/navigation'
 import { TransactionItem } from '@/features/transaction/components/transaction-item'
 import { getTransaction } from '@/features/transaction/queries/get-transaction'
-import { transactionsPath } from '@/paths'
 
 const TransactionPage = async ({
 	params,
@@ -17,16 +14,7 @@ const TransactionPage = async ({
 	const transaction = await getTransaction(transactionId)
 
 	if (!transaction) {
-		return (
-			<Placeholder
-				label="Transaction not found"
-				button={
-					<Button asChild variant="outline">
-						<Link href={transactionsPath()}>My Transactions</Link>
-					</Button>
-				}
-			/>
-		)
+		notFound()
 	}
 
 	return (
