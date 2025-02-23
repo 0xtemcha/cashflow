@@ -10,7 +10,8 @@
     "lint-fix": "next lint --fix",
     "prettier-fix": "prettier --write ./src",
     "type": "tsc --noEmit",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prisma-seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "6.4.1",
@@ -43,6 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.4.1",
     "tailwindcss": "^4",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }
