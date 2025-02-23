@@ -9,6 +9,21 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Transaction {
+  id        String          @id @default(cuid())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  title     String
+  content   String          @db.VarChar(1024)
+  type      TransactionType @default(OUTCOME)
+}
+
+enum TransactionType {
+  INCOME
+  OUTCOME
 }
