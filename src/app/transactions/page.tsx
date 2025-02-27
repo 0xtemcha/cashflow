@@ -8,16 +8,9 @@ import { TransactionList } from '@/features/transaction/components/transaction-l
 const TransactionsPage = async () => {
 	return (
 		<div className="flex flex-1 flex-col gap-y-8">
-			<Heading
-				title={'My Transactions'}
-				description="All your transactions at one place"
-			/>
+			<Heading title={'My Transactions'} description="All your transactions at one place" />
 
-			<ErrorBoundary
-				fallback={
-					<Placeholder label="Something went wrong. (using react-error-boundary)" />
-				}
-			>
+			<ErrorBoundary fallback={<Placeholder label="Something went wrong. (using react-error-boundary)" />}>
 				<Suspense fallback={<Spinner />}>
 					<TransactionList />
 				</Suspense>

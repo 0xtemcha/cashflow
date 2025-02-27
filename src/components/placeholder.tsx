@@ -7,11 +7,7 @@ type PlaceholderProps = {
 	button?: JSX.Element
 }
 
-const Placeholder = ({
-	label,
-	icon = <LucideMessageSquareWarning />,
-	button = <div />,
-}: PlaceholderProps) => {
+const Placeholder = ({ label, icon = <LucideMessageSquareWarning />, button = <div /> }: PlaceholderProps) => {
 	return (
 		<div className="flex flex-1 flex-col items-center justify-center gap-y-2 self-center">
 			{cloneElement(icon, {
