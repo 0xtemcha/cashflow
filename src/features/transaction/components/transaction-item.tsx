@@ -1,3 +1,4 @@
+import type { Transaction } from '@prisma/client'
 import { LucideArrowUpRightFromSquare } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
@@ -6,7 +7,6 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { transactionPath } from '@/paths'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
-import type { Transaction } from '../types'
 
 type TransactionItemProps = {
 	transaction: Transaction
@@ -37,15 +37,11 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 							{transaction.description}
 						</p>
 					</div>
-					<div className="flex items-center gap-4">
-						{TRANSACTION_TYPE_ICONS[transaction.type]}
-					</div>
+					<div className="flex items-center gap-4">{TRANSACTION_TYPE_ICONS[transaction.type]}</div>
 				</CardContent>
 			</Card>
 
-			{isDetail ? null : (
-				<div className="flex flex-col gap-y-1">{detailButton}</div>
-			)}
+			{isDetail ? null : <div className="flex flex-col gap-y-1">{detailButton}</div>}
 		</div>
 	)
 }

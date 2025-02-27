@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
-import type { Transaction } from '../types'
 
-export const getTransaction = async (id: string): Promise<Transaction | null> => {
+export const getTransaction = async (id: string) => {
 	return await prisma.transaction.findUnique({
 		where: {
 			id,
