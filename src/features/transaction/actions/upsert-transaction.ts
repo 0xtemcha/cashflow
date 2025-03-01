@@ -30,7 +30,7 @@ export const upsertTransaction = async (
 			create: data,
 		})
 	} catch (error) {
-		return { message: `Something went wrong. ${error}` }
+		return { message: `Something went wrong. ${error}`, payload: formData }
 	}
 
 	revalidatePath(transactionsPath())

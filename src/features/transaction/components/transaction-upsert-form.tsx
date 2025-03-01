@@ -20,10 +20,19 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 	return (
 		<form action={action} className="flex flex-col gap-y-2">
 			<Label htmlFor="title">Title</Label>
-			<Input type="text" id="title" name="title" defaultValue={transaction?.title} />
+			<Input
+				type="text"
+				id="title"
+				name="title"
+				defaultValue={(actionState.payload?.get('title') as string) ?? transaction?.title}
+			/>
 
 			<Label htmlFor="description">Description</Label>
-			<Textarea id="description" name="description" defaultValue={transaction?.description} />
+			<Textarea
+				id="description"
+				name="description"
+				defaultValue={(actionState.payload?.get('description') as string) ?? transaction?.description}
+			/>
 
 			<SubmitButton label={transaction ? 'Edit' : 'Add'} />
 
