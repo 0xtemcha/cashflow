@@ -5,17 +5,14 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { transactionPath, transactionsPath } from '@/paths'
+import { type ActionState, fromErrorToActionState } from '@/utils/from-error-to-action-state'
 
 const upsertTransactionSchema = z.object({
 	title: z.string().min(1).max(191),
 	description: z.string().min(1).max(1024),
 })
 
-export const upsertTransaction = async (
-	id: string | undefined,
-	_actionState: { message: string },
-	formData: FormData,
-) => {
+export const upsertTransaction = async (id: string | undefined, _actionState: ActionState, formData: FormData) => {
 	try {
 		const data = upsertTransactionSchema.parse({
 			title: formData.get('title'),
@@ -30,7 +27,7 @@ export const upsertTransaction = async (
 			create: data,
 		})
 	} catch (error) {
-		return { message: `Something went wrong. ${error}`, payload: formData }
+		return fromErrorToActionState(error, formData)
 	}
 
 	revalidatePath(transactionsPath())
