@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { CardCompact } from '@/components/card-compact'
 import { Heading } from '@/components/heading'
 import { Placeholder } from '@/components/placeholder'
 import { Spinner } from '@/components/spinner'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { TransactionCreateForm } from '@/features/transaction/components/transaction-create-form'
 import { TransactionList } from '@/features/transaction/components/transaction-list'
 
@@ -20,15 +20,12 @@ const TransactionsPage = async () => {
 		<div className="flex flex-1 flex-col gap-y-8">
 			<Heading title={'My Transactions'} description="All your transactions at one place" />
 
-			<Card className="w-full max-w-[580px] self-center">
-				<CardHeader>
-					<CardTitle>Add Transaction</CardTitle>
-					<CardDescription>A new Transaction will be added</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<TransactionCreateForm />
-				</CardContent>
-			</Card>
+			<CardCompact
+				title="Add Transaction"
+				description="A new Transaction will be added"
+				content={<TransactionCreateForm />}
+				className="w-full max-w-[580px] self-center"
+			/>
 
 			<ErrorBoundary fallback={<Placeholder label="Something went wrong. (using react-error-boundary)" />}>
 				<Suspense fallback={<Spinner />}>
