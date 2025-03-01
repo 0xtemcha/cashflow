@@ -1,11 +1,11 @@
 import type { Transaction } from '@prisma/client'
-import { LucideArrowUpRightFromSquare, LucideTrash } from 'lucide-react'
+import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { transactionPath } from '@/paths'
+import { transactionEditPath, transactionPath } from '@/paths'
 import { deleteTransaction } from '../actions/delete-transaction'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
 
@@ -15,6 +15,16 @@ type TransactionItemProps = {
 }
 
 const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
+	const editButton = (
+		<Link
+			prefetch={true}
+			href={transactionEditPath(transaction.id)}
+			className={`text-sm ${buttonVariants({ variant: 'outline', size: 'icon' })}`}
+		>
+			<LucidePencil />
+		</Link>
+	)
+
 	const detailButton = (
 		<Link
 			prefetch={true}
@@ -52,7 +62,10 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 				</CardContent>
 			</Card>
 
-			<div className="flex flex-col gap-y-1">{isDetail ? deleteButton : detailButton}</div>
+			<div className="flex flex-col gap-y-1">
+				{editButton}
+				{isDetail ? deleteButton : detailButton}
+			</div>
 		</div>
 	)
 }
