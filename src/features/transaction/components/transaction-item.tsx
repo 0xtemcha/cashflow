@@ -1,11 +1,14 @@
+'use client'
+
 import type { Transaction } from '@prisma/client'
-import { LucideArrowUpRightFromSquare } from 'lucide-react'
+import { LucideArrowUpRightFromSquare, LucideTrash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { transactionPath } from '@/paths'
+import { deleteTransaction } from '../actions/delete-transaction'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
 
 type TransactionItemProps = {
@@ -22,6 +25,17 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 			<LucideArrowUpRightFromSquare />
 		</Link>
 	)
+
+	const handleDeleteTicket = async () => {
+		await deleteTransaction(transaction.id)
+	}
+
+	const deleteButton = (
+		<Button size={'icon'} variant={'outline'} onClick={handleDeleteTicket}>
+			<LucideTrash />
+		</Button>
+	)
+
 	return (
 		<div className="flex w-full max-w-[580px] gap-x-1">
 			<Card className="w-full">
@@ -41,7 +55,7 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 				</CardContent>
 			</Card>
 
-			{isDetail ? null : <div className="flex flex-col gap-y-1">{detailButton}</div>}
+			<div className="flex flex-col gap-y-1">{isDetail ? deleteButton : detailButton}</div>
 		</div>
 	)
 }
