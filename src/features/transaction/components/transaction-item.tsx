@@ -1,5 +1,3 @@
-'use client'
-
 import type { Transaction } from '@prisma/client'
 import { LucideArrowUpRightFromSquare, LucideTrash } from 'lucide-react'
 import Link from 'next/link'
@@ -26,14 +24,12 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 		</Link>
 	)
 
-	const handleDeleteTicket = async () => {
-		await deleteTransaction(transaction.id)
-	}
-
 	const deleteButton = (
-		<Button size={'icon'} variant={'outline'} onClick={handleDeleteTicket}>
-			<LucideTrash />
-		</Button>
+		<form action={deleteTransaction.bind(null, transaction.id)}>
+			<Button size={'icon'} variant={'outline'}>
+				<LucideTrash />
+			</Button>
+		</form>
 	)
 
 	return (
