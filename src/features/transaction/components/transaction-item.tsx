@@ -17,6 +17,7 @@ type TransactionItemProps = {
 const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 	const detailButton = (
 		<Link
+			prefetch={true}
 			href={transactionPath(transaction.id)}
 			className={`text-sm ${buttonVariants({ variant: 'outline', size: 'icon' })}`}
 		>
