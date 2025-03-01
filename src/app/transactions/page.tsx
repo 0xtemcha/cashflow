@@ -4,8 +4,8 @@ import { CardCompact } from '@/components/card-compact'
 import { Heading } from '@/components/heading'
 import { Placeholder } from '@/components/placeholder'
 import { Spinner } from '@/components/spinner'
-import { TransactionCreateForm } from '@/features/transaction/components/transaction-create-form'
 import { TransactionList } from '@/features/transaction/components/transaction-list'
+import { TransactionUpsertForm } from '@/features/transaction/components/transaction-upsert-form'
 
 // Examples of how to hop out of static rendering and into dynamic rendering
 
@@ -23,7 +23,7 @@ const TransactionsPage = async () => {
 			<CardCompact
 				title="Add Transaction"
 				description="A new Transaction will be added"
-				content={<TransactionCreateForm />}
+				content={<TransactionUpsertForm />}
 				className="w-full max-w-[580px] self-center"
 			/>
 
