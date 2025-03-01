@@ -5,7 +5,11 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { transactionPath, transactionsPath } from '@/paths'
 
-export const upsertTransaction = async (id: string | undefined, formData: FormData) => {
+export const upsertTransaction = async (
+	id: string | undefined,
+	_actionState: { message: string },
+	formData: FormData,
+) => {
 	const data = {
 		title: formData.get('title') as string,
 		description: formData.get('description') as string,
@@ -23,4 +27,6 @@ export const upsertTransaction = async (id: string | undefined, formData: FormDa
 	if (id) {
 		redirect(transactionPath(id))
 	}
+
+	return { message: 'Transaction added.' }
 }
