@@ -4,9 +4,10 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { setCookieByKey } from '@/actions/cookies'
+import { type ActionState, fromErrorToActionState, toActionState } from '@/components/form/utils/to-action-state'
 import { prisma } from '@/lib/prisma'
 import { transactionPath, transactionsPath } from '@/paths'
-import { type ActionState, fromErrorToActionState, toActionState } from '@/utils/to-action-state'
+import { toCent } from '@/utils/currency'
 
 const upsertTransactionSchema = z.object({
 	title: z.string().min(1).max(191),
@@ -22,12 +23,17 @@ export const upsertTransaction = async (id: string | undefined, _actionState: Ac
 			amount: formData.get('amount'),
 		})
 
+		const dbData = {
+			...data,
+			amount: toCent(data.amount),
+		}
+
 		await prisma.transaction.upsert({
 			where: {
 				id: id || '',
 			},
-			update: data,
-			create: data,
+			update: dbData,
+			create: dbData,
 		})
 	} catch (error) {
 		return fromErrorToActionState(error, formData)

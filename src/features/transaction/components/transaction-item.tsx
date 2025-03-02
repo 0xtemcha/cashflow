@@ -6,6 +6,7 @@ import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { transactionEditPath, transactionPath } from '@/paths'
+import { toCurrencyFromCent } from '@/utils/currency'
 import { deleteTransaction } from '../actions/delete-transaction'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
 
@@ -60,7 +61,7 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 					</div>
 					<div className="flex items-center gap-x-1">
 						<span>{TRANSACTION_TYPE_ICONS[transaction.type]}</span>
-						<span className="font-bold">{transaction.amount}</span>
+						<span className="font-bold">{toCurrencyFromCent(transaction.amount)}</span>
 					</div>
 				</CardContent>
 			</Card>

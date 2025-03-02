@@ -5,10 +5,11 @@ import React, { useActionState } from 'react'
 import { FieldError } from '@/components/form/field-error'
 import { Form } from '@/components/form/form'
 import { SubmitButton } from '@/components/form/submit-button'
+import { EMPTY_ACTION_STATE } from '@/components/form/utils/to-action-state'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { EMPTY_ACTION_STATE } from '@/utils/to-action-state'
+import { fromCent } from '@/utils/currency'
 import { upsertTransaction } from '../actions/upsert-transaction'
 
 type TransactionUpsertFormProps = {
@@ -44,7 +45,9 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 					name="amount"
 					type="number"
 					step={0.01}
-					defaultValue={(actionState.payload?.get('amount') as string) ?? transaction?.amount}
+					defaultValue={
+						(actionState.payload?.get('amount') as string) ?? (transaction?.amount ? fromCent(transaction?.amount) : '')
+					}
 				/>
 				<FieldError actionState={actionState} name="amount" />
 			</div>
