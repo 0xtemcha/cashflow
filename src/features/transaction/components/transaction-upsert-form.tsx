@@ -19,8 +19,12 @@ type TransactionUpsertFormProps = {
 const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 	const [actionState, action] = useActionState(upsertTransaction.bind(null, transaction?.id), EMPTY_ACTION_STATE)
 
+	const handleSuccess = () => {
+		console.log('Success Handler')
+	}
+
 	return (
-		<Form action={action} actionState={actionState}>
+		<Form action={action} actionState={actionState} onSuccess={handleSuccess}>
 			<Label htmlFor="title">Title</Label>
 			<Input
 				type="text"
