@@ -1,5 +1,5 @@
 import type { Transaction } from '@prisma/client'
-import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash } from 'lucide-react'
+import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil, LucideTrash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button, buttonVariants } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import { transactionEditPath, transactionPath } from '@/paths'
 import { toCurrencyFromCent } from '@/utils/currency'
 import { deleteTransaction } from '../actions/delete-transaction'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
+import { TransactionMoreMenu } from './transaction-more-menu'
 
 type TransactionItemProps = {
 	transaction: Transaction
@@ -44,6 +45,17 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 		</form>
 	)
 
+	const moreMenu = (
+		<TransactionMoreMenu
+			transaction={transaction}
+			trigger={
+				<Button variant="outline" size="icon">
+					<LucideMoreVertical />
+				</Button>
+			}
+		/>
+	)
+
 	return (
 		<div className="flex w-full max-w-[580px] gap-x-1">
 			<Card className="w-full">
@@ -68,7 +80,14 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 
 			<div className="flex flex-col gap-y-1">
 				{editButton}
-				{isDetail ? deleteButton : detailButton}
+				{isDetail ? (
+					<>
+						{deleteButton}
+						{moreMenu}
+					</>
+				) : (
+					detailButton
+				)}
 			</div>
 		</div>
 	)
