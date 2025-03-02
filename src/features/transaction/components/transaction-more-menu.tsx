@@ -29,7 +29,13 @@ const TransactionMoreMenu = ({ transaction, trigger }: TransactionMoreMenuProps)
 	)
 
 	const handleUpdateTransactionType = async (value: string) => {
-		const result = await updateTransactionType(transaction.id, value as TransactionType)
+		const promise = updateTransactionType(transaction.id, value as TransactionType)
+
+		toast.promise(promise, {
+			loading: 'Updating type...',
+		})
+
+		const result = await promise
 
 		if (result.status === 'ERROR') {
 			toast.error(result.message)
