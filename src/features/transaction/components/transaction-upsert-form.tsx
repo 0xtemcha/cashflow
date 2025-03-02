@@ -2,6 +2,7 @@
 
 import type { Transaction } from '@prisma/client'
 import React, { useActionState } from 'react'
+import { toast } from 'sonner'
 import { FieldError } from '@/components/form/field-error'
 import { SubmitButton } from '@/components/form/submit-button'
 import { Input } from '@/components/ui/input'
@@ -20,12 +21,14 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 
 	useActionFeedback(actionState, {
 		onSuccess: ({ actionState }) => {
-			console.log(actionState.message)
-			// TODO optionally handle success
+			if (actionState.message) {
+				toast.success(actionState.message)
+			}
 		},
 		onError: ({ actionState }) => {
-			console.log(actionState.message)
-			// TODO optionally handle error
+			if (actionState.message) {
+				toast.error(actionState.message)
+			}
 		},
 	})
 
