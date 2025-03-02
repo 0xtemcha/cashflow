@@ -1,14 +1,12 @@
 import type { Transaction } from '@prisma/client'
-import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil, LucideTrash } from 'lucide-react'
+import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
-import { ConfirmDialog } from '@/components/confirm-dialog'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { transactionEditPath, transactionPath } from '@/paths'
 import { toCurrencyFromCent } from '@/utils/currency'
-import { deleteTransaction } from '../actions/delete-transaction'
 import { TRANSACTION_TYPE_ICONS } from '../constants'
 import { TransactionMoreMenu } from './transaction-more-menu'
 
@@ -36,17 +34,6 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 		>
 			<LucideArrowUpRightFromSquare />
 		</Link>
-	)
-
-	const deleteButton = (
-		<ConfirmDialog
-			action={deleteTransaction.bind(null, transaction.id)}
-			trigger={
-				<Button variant="outline" size="icon">
-					<LucideTrash />
-				</Button>
-			}
-		/>
 	)
 
 	const moreMenu = (
@@ -84,14 +71,7 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 
 			<div className="flex flex-col gap-y-1">
 				{editButton}
-				{isDetail ? (
-					<>
-						{deleteButton}
-						{moreMenu}
-					</>
-				) : (
-					detailButton
-				)}
+				{isDetail ? moreMenu : detailButton}
 			</div>
 		</div>
 	)

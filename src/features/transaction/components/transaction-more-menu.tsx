@@ -3,6 +3,7 @@
 import { Transaction, type TransactionType } from '@prisma/client'
 import { LucideTrash } from 'lucide-react'
 import { toast } from 'sonner'
+import { useConfirmDialog } from '@/components/confirm-dialog'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { deleteTransaction } from '../actions/delete-transaction'
 import { updateTransactionType } from '../actions/update-transaction-type'
 import { TRANSACTION_STATUS_LABELS } from '../constants'
 
@@ -21,12 +23,15 @@ type TransactionMoreMenuProps = {
 }
 
 const TransactionMoreMenu = ({ transaction, trigger }: TransactionMoreMenuProps) => {
-	const deleteButton = (
-		<DropdownMenuItem>
-			<LucideTrash className="size-4" />
-			<span>Delete</span>
-		</DropdownMenuItem>
-	)
+	const [deleteButton, deleteDialog] = useConfirmDialog({
+		action: deleteTransaction.bind(null, transaction.id),
+		trigger: (
+			<DropdownMenuItem>
+				<LucideTrash className="size-4" />
+				<span>Delete</span>
+			</DropdownMenuItem>
+		),
+	})
 
 	const handleUpdateTransactionType = async (value: string) => {
 		const promise = updateTransactionType(transaction.id, value as TransactionType)
@@ -55,14 +60,17 @@ const TransactionMoreMenu = ({ transaction, trigger }: TransactionMoreMenuProps)
 	)
 
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56" side="right">
-				{transactionStatusRadioGroupItems}
-				<DropdownMenuSeparator />
-				{deleteButton}
-			</DropdownMenuContent>
-		</DropdownMenu>
+		<>
+			{deleteDialog}
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+				<DropdownMenuContent className="w-56" side="right">
+					{transactionStatusRadioGroupItems}
+					<DropdownMenuSeparator />
+					{deleteButton}
+				</DropdownMenuContent>
+			</DropdownMenu>
+		</>
 	)
 }
 
