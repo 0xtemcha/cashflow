@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
+import { setCookieByKey } from '@/actions/cookies'
 import { prisma } from '@/lib/prisma'
 import { transactionPath, transactionsPath } from '@/paths'
 import { type ActionState, fromErrorToActionState, toActionState } from '@/utils/to-action-state'
@@ -32,6 +33,7 @@ export const upsertTransaction = async (id: string | undefined, _actionState: Ac
 
 	revalidatePath(transactionsPath())
 	if (id) {
+		await setCookieByKey('toast', 'Ticket updated')
 		redirect(transactionPath(id))
 	}
 
