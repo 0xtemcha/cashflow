@@ -11,6 +11,7 @@ import { type ActionState, fromErrorToActionState, toActionState } from '@/utils
 const upsertTransactionSchema = z.object({
 	title: z.string().min(1).max(191),
 	description: z.string().min(1).max(1024),
+	amount: z.coerce.number().positive(),
 })
 
 export const upsertTransaction = async (id: string | undefined, _actionState: ActionState, formData: FormData) => {
@@ -18,6 +19,7 @@ export const upsertTransaction = async (id: string | undefined, _actionState: Ac
 		const data = upsertTransactionSchema.parse({
 			title: formData.get('title'),
 			description: formData.get('description'),
+			amount: formData.get('amount'),
 		})
 
 		await prisma.transaction.upsert({

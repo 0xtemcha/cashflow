@@ -21,6 +21,7 @@ model Transaction {
   title       String
   description String          @db.VarChar(1024)
   type        TransactionType @default(OUTCOME)
+  amount      Int
 }
 
 enum TransactionType {

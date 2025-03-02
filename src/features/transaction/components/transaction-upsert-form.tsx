@@ -37,6 +37,18 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 			/>
 			<FieldError actionState={actionState} name="description" />
 
+			<div className="mb-1 w-full">
+				<Label htmlFor="amount">Amount (UAH)</Label>
+				<Input
+					id="amount"
+					name="amount"
+					type="number"
+					step={0.01}
+					defaultValue={(actionState.payload?.get('amount') as string) ?? transaction?.amount}
+				/>
+				<FieldError actionState={actionState} name="amount" />
+			</div>
+
 			<SubmitButton label={transaction ? 'Edit' : 'Add'} />
 		</Form>
 	)

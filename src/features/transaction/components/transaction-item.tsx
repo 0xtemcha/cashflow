@@ -58,7 +58,10 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 							{transaction.description}
 						</p>
 					</div>
-					<div className="flex items-center gap-4">{TRANSACTION_TYPE_ICONS[transaction.type]}</div>
+					<div className="flex items-center gap-x-1">
+						<span>{TRANSACTION_TYPE_ICONS[transaction.type]}</span>
+						<span className="font-bold">{transaction.amount}</span>
+					</div>
 				</CardContent>
 			</Card>
 
