@@ -2,6 +2,7 @@ import type { Transaction } from '@prisma/client'
 import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil, LucideTrash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
@@ -38,11 +39,14 @@ const TransactionItem = ({ transaction, isDetail }: TransactionItemProps) => {
 	)
 
 	const deleteButton = (
-		<form action={deleteTransaction.bind(null, transaction.id)}>
-			<Button size={'icon'} variant={'outline'}>
-				<LucideTrash />
-			</Button>
-		</form>
+		<ConfirmDialog
+			action={deleteTransaction.bind(null, transaction.id)}
+			trigger={
+				<Button variant="outline" size="icon">
+					<LucideTrash />
+				</Button>
+			}
+		/>
 	)
 
 	const moreMenu = (
