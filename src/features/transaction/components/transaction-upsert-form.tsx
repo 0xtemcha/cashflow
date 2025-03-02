@@ -7,6 +7,7 @@ import { SubmitButton } from '@/components/form/submit-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useActionFeedback } from '@/hooks/use-action-feedback'
 import { EMPTY_ACTION_STATE } from '@/utils/to-action-state'
 import { upsertTransaction } from '../actions/upsert-transaction'
 
@@ -16,6 +17,17 @@ type TransactionUpsertFormProps = {
 
 const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 	const [actionState, action] = useActionState(upsertTransaction.bind(null, transaction?.id), EMPTY_ACTION_STATE)
+
+	useActionFeedback(actionState, {
+		onSuccess: ({ actionState }) => {
+			console.log(actionState.message)
+			// TODO optionally handle success
+		},
+		onError: ({ actionState }) => {
+			console.log(actionState.message)
+			// TODO optionally handle error
+		},
+	})
 
 	return (
 		<form action={action} className="flex flex-col gap-y-2">
@@ -37,8 +49,6 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 			<FieldError actionState={actionState} name="description" />
 
 			<SubmitButton label={transaction ? 'Edit' : 'Add'} />
-
-			{actionState.message}
 		</form>
 	)
 }
