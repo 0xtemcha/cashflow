@@ -2,10 +2,12 @@
 
 import type { Transaction } from '@prisma/client'
 import React, { useActionState } from 'react'
+import { FieldError } from '@/components/form/field-error'
 import { SubmitButton } from '@/components/form/submit-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { EMPTY_ACTION_STATE } from '@/utils/to-action-state'
 import { upsertTransaction } from '../actions/upsert-transaction'
 
 type TransactionUpsertFormProps = {
@@ -13,9 +15,7 @@ type TransactionUpsertFormProps = {
 }
 
 const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
-	const [actionState, action] = useActionState(upsertTransaction.bind(null, transaction?.id), {
-		message: '',
-	})
+	const [actionState, action] = useActionState(upsertTransaction.bind(null, transaction?.id), EMPTY_ACTION_STATE)
 
 	return (
 		<form action={action} className="flex flex-col gap-y-2">
@@ -26,6 +26,7 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 				name="title"
 				defaultValue={(actionState.payload?.get('title') as string) ?? transaction?.title}
 			/>
+			<FieldError actionState={actionState} name="title" />
 
 			<Label htmlFor="description">Description</Label>
 			<Textarea
@@ -33,6 +34,7 @@ const TransactionUpsertForm = ({ transaction }: TransactionUpsertFormProps) => {
 				name="description"
 				defaultValue={(actionState.payload?.get('description') as string) ?? transaction?.description}
 			/>
+			<FieldError actionState={actionState} name="description" />
 
 			<SubmitButton label={transaction ? 'Edit' : 'Add'} />
 

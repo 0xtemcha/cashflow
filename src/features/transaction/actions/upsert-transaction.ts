@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { transactionPath, transactionsPath } from '@/paths'
-import { type ActionState, fromErrorToActionState } from '@/utils/from-error-to-action-state'
+import { type ActionState, fromErrorToActionState, toActionState } from '@/utils/to-action-state'
 
 const upsertTransactionSchema = z.object({
 	title: z.string().min(1).max(191),
@@ -35,5 +35,5 @@ export const upsertTransaction = async (id: string | undefined, _actionState: Ac
 		redirect(transactionPath(id))
 	}
 
-	return { message: 'Transaction added.' }
+	return toActionState('SUCCESS', 'Transaction added.')
 }
